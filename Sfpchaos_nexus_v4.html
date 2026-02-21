@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SFPCHAOS LEGENDARY NEXUS IPAD Unblocked v.6</title>
+<style>
+body {
+    background: #050a1f;
+    color: #00f7ff;
+    font-family: monospace;
+    text-align: center;
+    transition: 0.3s;
+    overflow-x: hidden;
+}
+h1 { text-shadow: 0 0 10px #00f7ff; }
+button { background:black; border:2px solid #00f7ff; color:#00f7ff; padding:8px 14px; margin:5px; cursor:pointer; transition:0.2s;}
+button:hover { background:#00f7ff; color:black; }
+.section { margin:20px; padding:10px; background:#0a0f2e; border-radius:10px; }
+input { padding:6px; width:80px; }
+footer { margin-top:40px; font-size:12px; color:#8888ff; }
+canvas { position:fixed; top:0; left:0; z-index:0; }
+</style>
+</head>
+<body>
+
+<h1>Romans Nexus iPad Unblocked v.6</h1>
+
+<div class="section">
+<h2>Links</h2>
+<a href="https://www.coolmathgames.com" target="_blank"><button>Coolmathgames</button></a>
+<a href="https://sites.google.com/view/drive-u-7-home-10/" target="_blank"><button>Drive U 7</button></a>
+<a href="https://sites.google.com/view/classroom6x/" target="_blank"><button>Classroom6x</button></a>
+<a href="https://scratch.mit.edu" target="_blank"><button>Scratch</button></a>
+<a href="https://earth.google.com/web/" target="_blank"><button>Google Earth (might not work!)</button></a>
+<a href="https://www.typing.com" target="_blank"><button>Typing</button></a>
+</div>
+
+<div class="section">
+<h2>admin command central</h2>
+<input id="cmd" placeholder="type command">
+<button onclick="run()">Run</button>
+<p id="terminal"></p>
+<audio id="discoMusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="section">
+<h2>Clicker</h2>
+<p id="points">Data: 0</p>
+<button onclick="clickData()">Click</button>
+<button onclick="upgrade()">Upgrade (+5)</button>
+<p id="clickerLevel">Level: 1 | Power: 1</p>
+</div>
+
+<div class="section">
+<h2>⚡ Reaction Test</h2>
+<p>Wait for the button to appear then click it as fast as possible</p>
+<button onclick="startReaction()">Start</button>
+<p id="reaction"></p>
+</div>
+
+<div class="section">
+<h2>🎯 Guess The Number (Hot/Cold 1–200)</h2>
+<input type="number" id="guess" min="1" max="200">
+<button onclick="checkGuess()">Guess</button>
+<p id="guessResult"></p>
+<p id="guessCount"></p>
+</div>
+
+<div class="section">
+<h2>Spelling Bee</h2>
+<button onclick="startSpelling()">Start Spelling Bee</button>
+<button onclick="repeatWord()">Repeat Word</button>
+<input type="text" id="spellingInput">
+<button onclick="checkSpelling()">Submit</button>
+<p id="spellingResult"></p>
+</div>
+
+<div class="section">
+<h2>Memory Game</h2>
+<button onclick="startMemory()">Start Memory Game</button>
+<p id="memorySeq"></p>
+<input id="memoryInput">
+<button onclick="checkMemory()">Submit</button>
+<p id="memoryResult"></p>
+</div>
+
+<div class="section">
+<h2>Math Speed</h2>
+<p id="mathQ"></p>
+<input id="mathAns">
+<button onclick="checkMath()">Answer</button>
+<p id="mathResult"></p>
+</div>
+
+<div class="section">
+<h2> Dice Roller</h2>
+<select id="diceType">
+<option value="6">d6</option>
+<option value="12">d12</option>
+<option value="20">d20</option>
+</select>
+<button onclick="rollDice()">Roll</button>
+<p id="dice"></p>
+</div>
+
+<div class="section">
+<h2>Decrypt Simulator</h2>
+<button onclick="decrypt()">Decrypt File</button>
+<p id="decryptOut"></p>
+<img id="wooper" src="https://archives.bulbagarden.net/media/upload/6/6b/194Wooper.png" style="display:none; width:150px;">
+</div>
+
+<div class="section">
+<h2>Theme Switch</h2>
+<button onclick="blue()">Blue</button>
+<button onclick="green()">Matrix</button>
+<button onclick="chaos()">Chaos</button>
+</div>
+
+<footer>Made by random kid named Roman</footer>
+
+<canvas id="matrix"></canvas>
+
+<script>
+// Terminal
+let discoPlaying=false;
+function run(){
+  let cmd=document.getElementById("cmd").value;
+  let out="Unknown command.";
+  let disco=document.getElementById("discoMusic");
+  if(cmd==="help") out="help, scan, wooper, chaos, gink";
+  if(cmd==="scan") out="Scanning... Secure.";
+  if(cmd==="wooper") out="Wooper approves 💙";
+  if(cmd==="chaos") chaos();
+  if(cmd==="gink"){
+    disco.play(); discoPlaying=true;
+    document.body.style.background="linear-gradient(45deg,#ff00ff,#00ffff,#ffff00)";
+    out="GINK mode activated 🕺 Disco!";
+  }
+  document.getElementById("terminal").innerHTML=out;
+  document.getElementById("cmd").value="";
+}
+
+// Data Clicker
+let data=0,power=1,level=1;
+document.getElementById("points").innerHTML="Data: "+data;
+document.getElementById("clickerLevel").innerHTML="Level: "+level+" | Power: "+power;
+function clickData(){ data+=power; document.getElementById("points").innerHTML="Data: "+data; }
+function upgrade(){ if(data>=20*level){ data-=20*level; power+=level*2; level++; document.getElementById("points").innerHTML="Data: "+data; document.getElementById("clickerLevel").innerHTML="Level: "+level+" | Power: "+power; alert("Upgrade purchased! Level "+level); }}
+
+// Reaction Test
+let startTime;
+function startReaction(){ document.getElementById("reaction").innerHTML="Wait..."; setTimeout(()=>{startTime=Date.now(); document.getElementById("reaction").innerHTML="<button onclick='stopReaction()'>CLICK</button>";},Math.random()*2000+1000);}
+function stopReaction(){ let time=Date.now()-startTime; document.getElementById("reaction").innerHTML="Reaction Time: "+time+" ms";}
+
+// Hot/Cold Guess
+let secret=Math.floor(Math.random()*200)+1; let attempts=0;
+function checkGuess(){ let guess=Number(document.getElementById("guess").value); attempts++; if(!guess||guess<1||guess>200){document.getElementById("guessResult").innerHTML="Enter 1-200."; return;} let diff=Math.abs(secret-guess); let message=""; if(guess===secret){message="🎉 CORRECT"; secret=Math.floor(Math.random()*200)+1; attempts=0;} else if(diff<=3){message="🔥🔥 BURNING HOT";} else if(diff<=10){message="🔥 Very Warm";} else if(diff<=25){message="🌡️ Warm";} else if(diff<=50){message="❄️ Cold";} else{message="🧊 Freezing";} document.getElementById("guessResult").innerHTML=message; document.getElementById("guessCount").innerHTML="Attempts: "+attempts;}
+
+// Spelling Bee
+let spellingWords=["Internet","Dynamix","Wednesday","Happy","Aliteration","Chrome", "Legendary", "Fanatic" ]; let currentWord="";
+function startSpelling(){ currentWord=spellingWords[Math.floor(Math.random()*spellingWords.length)]; speakWord(currentWord); document.getElementById("spellingResult").innerHTML="Type the word and submit!";}
+function repeatWord(){ if(currentWord) speakWord(currentWord); }
+function speakWord(word){ let msg=new SpeechSynthesisUtterance(word); window.speechSynthesis.speak(msg);}
+function checkSpelling(){ let input=document.getElementById("spellingInput").value; if(input===currentWord){document.getElementById("spellingResult").innerHTML="Correct 🔓"; startSpelling();} else{document.getElementById("spellingResult").innerHTML="Try again.";}}
+
+// Memory Game
+let memoryCode=0;
+function startMemory(){ memoryCode=Math.floor(Math.random()*900+100); document.getElementById("memorySeq").innerHTML="Memorize: "+memoryCode; document.getElementById("memoryResult").innerHTML=""; setTimeout(()=>{document.getElementById("memorySeq").innerHTML="Enter it:"},2000);}
+function checkMemory(){ let input=document.getElementById("memoryInput").value; if(input==memoryCode){document.getElementById("memoryResult").innerHTML="Correct!";} else{document.getElementById("memoryResult").innerHTML="Wrong.";}}
+
+// Math Speed
+let a=Math.floor(Math.random()*10),b=Math.floor(Math.random()*10);
+document.getElementById("mathQ").innerHTML=a+" + "+b+" = ?";
+function checkMath(){ if(document.getElementById("mathAns").value==a+b){document.getElementById("mathResult").innerHTML="Fast brain!";} else{document.getElementById("mathResult").innerHTML="Nope.";} a=Math.floor(Math.random()*10); b=Math.floor(Math.random()*10); document.getElementById("mathQ").innerHTML=a+" + "+b+" = ?"; document.getElementById("mathAns").value="";}
+
+// Dice
+function rollDice(){ let type=Number(document.getElementById("diceType").value); document.getElementById("dice").innerHTML="You rolled: "+(Math.floor(Math.random()*type)+1);}
+
+// Decrypt Simulator
+function decrypt(){ document.getElementById("decryptOut").innerHTML="Decrypting..."; setTimeout(()=>{ document.getElementById("decryptOut").innerHTML="File Decrypted ✔"; document.getElementById("wooper").style.display="inline";},2000);}
+
+// Themes
+function blue(){document.body.style.background="#050a1f";document.body.style.color="#00f7ff"; stopMatrix();}
+function green(){document.body.style.background="black";document.body.style.color="#00ff88"; startMatrix();}
+function chaos(){document.body.style.background="#220022";document.body.style.color="#ff00ff"; stopMatrix();}
+
+// Matrix Rain
+let canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d"),columns,drops,matrixInterval;
+function startMatrix(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; columns=canvas.width/20; drops=[]; for(let x=0;x<columns;x++) drops[x]=1; matrixInterval=setInterval(drawMatrix,50);}
+function stopMatrix(){ clearInterval(matrixInterval); ctx.clearRect(0,0,canvas.width,canvas.height);}
+function drawMatrix(){ ctx.fillStyle="rgba(0,0,0,0.05)"; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle="#0F0"; ctx.font="20px monospace"; for(let i=0;i<drops.length;i++){ let text=String.fromCharCode(Math.floor(Math.random()*128)); ctx.fillText(text,i*20,drops[i]*20); if(drops[i]*20>canvas.height && Math.random()>0.975) drops[i]=0; drops[i]++; } }
+</script>
+
+</body>
+</html>
